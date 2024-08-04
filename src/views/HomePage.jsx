@@ -8,12 +8,15 @@ import PokemonTeam from "../components/PokemonTeam";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
+import Form from "react-bootstrap/Form";
 
 function HomePage() {
   const [team, setTeam] = useState([]);
   const [allPokemon, setAllPokemon] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const initialLoad = useRef(true); // Ref to control the initial load
   const maxTeamSize = 6;
   const batchSize = 100;
@@ -73,7 +76,14 @@ function HomePage() {
 
   // Filter the list of Pokemon to exclude any that are already in the team
   const filteredPokemonList = allPokemon.filter((pokemonInList) => {
-    return !team.some((pokemonInTeam) => pokemonInTeam.id === pokemonInList.id);
+    const isInTeam = team.some(
+      (pokemonInTeam) => pokemonInTeam.id === pokemonInList.id
+    );
+    const isInSearch = pokemonInList.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    return !isInTeam && isInSearch;
   });
 
   return (
@@ -81,6 +91,13 @@ function HomePage() {
       <Row>
         <Col md={8}>
           <h2>Pokémon List</h2>
+          <Form.Control
+            type="text"
+            placeholder="Search Pokémon"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="mb-3"
+          />
           <PokemonList
             pokemonList={filteredPokemonList}
             addToTeam={handleAddToTeam}

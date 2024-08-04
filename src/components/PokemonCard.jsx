@@ -8,9 +8,10 @@ function PokemonCard({ pokemon, action, actionLabel }) {
     actionLabel === "Remove from Team" ? "danger" : "primary";
 
   const sprites = pokemon?.sprites;
-  const spriteToUse = sprites?.other
-    ? sprites?.other?.dream_world?.front_default
+  const idealSprite = sprites?.other
+    ? sprites?.other?.home?.front_default
     : sprites?.front_default;
+  const spriteToUse = idealSprite || sprites?.front_default;
 
   return (
     <Card className="mb-3">

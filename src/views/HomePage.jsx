@@ -8,29 +8,34 @@ import PokemonTeam from "../components/PokemonTeam";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
 function HomePage() {
   const [team, setTeam] = useState([]);
   const [allPokemon, setAllPokemon] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [nextBatch, setNextBatch] = useState(1);
   const initialLoad = useRef(true); // Ref to control the initial load
   const maxTeamSize = 6;
   const batchSize = 100;
+  const maxPokemon = 1025;
 
   // Fetch the list of Pokemon from the PokeAPI
   useEffect(() => {
     if (initialLoad.current) {
-      loadPokemon();
+      loadAllPokemon();
+      // This is so that the initial load only happens once
       initialLoad.current = false;
     }
   }, []);
 
-  const loadPokemon = async () => {
-    console.log("Fetching more pokemon...");
+  // Load all the pokemon, in batches of `batchSize`
+  const loadAllPokemon = async (batchStart = 1) => {
+    // Stop if all Pokemon are loaded
+    if (batchStart > maxPokemon) return;
+
     setLoading(true);
-    const pokemonData = await fetchPokemon(nextBatch, batchSize);
+
+    const pokemonData = await fetchPokemon(batchStart, batchSize, maxPokemon);
 
     // Ensure that the Pokemon data is not duplicated
     const uniquePokemonData = pokemonData.filter((newPokemon) => {
@@ -39,11 +44,21 @@ function HomePage() {
       });
     });
 
+    // Preload images for the new Pokemon
     preloadImages(uniquePokemonData);
 
-    setAllPokemon((prev) => [...prev, ...uniquePokemonData]);
-    setNextBatch(nextBatch + batchSize);
+    // Update the list of all Pokemon
+    setAllPokemon((prev) => {
+      const updatedPokemon = [...prev, ...uniquePokemonData];
+      return updatedPokemon;
+    });
+
     setLoading(false);
+
+    // Schedule the next batch of Pokemon to be loaded
+    setTimeout(() => {
+      loadAllPokemon(batchStart + batchSize);
+    }, 100);
   };
 
   // Handle adding a pokemon to the team
@@ -71,11 +86,6 @@ function HomePage() {
             addToTeam={handleAddToTeam}
           />
           {loading && <Spinner animation="border" />}
-          {!loading && nextBatch < 1302 && (
-            <Button onClick={loadPokemon} className="mt-3">
-              Load More Pokémon
-            </Button>
-          )}
         </Col>
 
         <Col md={4}>

@@ -5,11 +5,11 @@ import axios from "axios";
  * Fetches a batch of Pokémon data from the PokéAPI.
  * @param {number} start - The starting index for fetching Pokémon.
  * @param {number} batchSize - The number of Pokémon to fetch in one batch.
+ * @param {number} maxPokemon - The maximum number of Pokémon to fetch.
  * @returns {Promise<Array>} - A promise that resolves to an array of Pokémon data.
  */
-export const fetchPokemon = async (start, batchSize) => {
+export const fetchPokemon = async (start, batchSize, maxPokemon) => {
   const promises = [];
-  const maxPokemon = 1302;
 
   for (let i = start; i < start + batchSize && i <= maxPokemon; i++) {
     promises.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));

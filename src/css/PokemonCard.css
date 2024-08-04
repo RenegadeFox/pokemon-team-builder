@@ -3,3 +3,12 @@
   height: 100px;
   object-fit: contain;
 }
+
+.pokemon-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  font-size: calc(1rem + 0.5vw);
+  text-transform: capitalize;
+}

@@ -17,7 +17,7 @@ function PokemonCard({ pokemon, action, isRemoving = false, viewDetails }) {
     <Card className="mb-3">
       <Card.Img className="pokemon-img pt-2" variant="top" src={spriteToUse} />
       <Card.Body className="text-center">
-        <Card.Title>{pokemon.name}</Card.Title>
+        <Card.Title className="pokemon-name">{pokemon.name}</Card.Title>
         <div className="d-flex justify-content-around">
           <Button variant={buttonVariant} onClick={() => action(pokemon)}>
             <i className={`bi ${buttonIcon}`}></i>

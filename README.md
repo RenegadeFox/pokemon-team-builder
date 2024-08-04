@@ -1,6 +1,3 @@
-Sure! A good `README.md` file typically includes an overview of the project, setup instructions, usage guidelines, and any other relevant information. Here’s an example of how you could structure the `README.md` for your Pokémon Team Builder project:
-
-````markdown
 # Pokémon Team Builder
 
 A React application that allows users to build their own Pokémon team using data fetched from the PokéAPI.
@@ -34,6 +31,7 @@ These instructions will get you a copy of the project up and running on your loc
    git clone https://github.com/your-username/pokemon-team-builder.git
    cd pokemon-team-builder
    ```
+
 ````
 
 2. Install the dependencies:
@@ -131,8 +129,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Inspired by the Pokémon series.
 - Thanks to the developers of the PokéAPI.
-
-```
-
-Feel free to customize the `README.md` file further based on your specific needs and preferences. If you have any additional sections or information you'd like to include, let me know!
-```
+````

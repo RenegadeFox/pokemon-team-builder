@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { addToTeam, removeFromTeam } from "../utils/teamUtils";
 import { fetchPokemon, preloadImages } from "../utils/pokemonApi";
@@ -16,6 +17,7 @@ function HomePage() {
   const [allPokemon, setAllPokemon] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const initialLoad = useRef(true); // Ref to control the initial load
   const maxTeamSize = 6;
@@ -76,7 +78,7 @@ function HomePage() {
 
   // Function to show details of a Pokemon
   const viewDetails = (pokemon) => {
-    console.log("Viewing details for", pokemon.name);
+    navigate(`/pokemon/${pokemon.id}`);
   };
 
   // Filter the list of Pokemon to exclude any that are already in the team

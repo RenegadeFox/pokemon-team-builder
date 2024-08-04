@@ -74,6 +74,11 @@ function HomePage() {
     setTeam(removeFromTeam(team, pokemonToRemove));
   };
 
+  // Function to show details of a Pokemon
+  const viewDetails = (pokemon) => {
+    console.log("Viewing details for", pokemon.name);
+  };
+
   // Filter the list of Pokemon to exclude any that are already in the team
   const filteredPokemonList = allPokemon.filter((pokemonInList) => {
     const isInTeam = team.some(
@@ -101,13 +106,18 @@ function HomePage() {
           <PokemonList
             pokemonList={filteredPokemonList}
             addToTeam={handleAddToTeam}
+            viewDetails={viewDetails}
           />
           {loading && <Spinner animation="border" />}
         </Col>
 
         <Col md={4}>
           <h2>My Pokémon Team</h2>
-          <PokemonTeam team={team} removeFromTeam={handleRemoveFromTeam} />
+          <PokemonTeam
+            team={team}
+            removeFromTeam={handleRemoveFromTeam}
+            viewDetails={viewDetails}
+          />
         </Col>
       </Row>
     </Container>

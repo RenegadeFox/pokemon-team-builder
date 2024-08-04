@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PokemonCard from "./PokemonCard";
 
-function PokemonTeam({ team, removeFromTeam }) {
+function PokemonTeam({ team, removeFromTeam, viewDetails }) {
   return (
     <Container>
       <Row>
@@ -13,7 +13,8 @@ function PokemonTeam({ team, removeFromTeam }) {
             <PokemonCard
               pokemon={pokemon}
               action={removeFromTeam}
-              actionLabel="Remove from Team"
+              isRemoving={true}
+              viewDetails={viewDetails}
             />
           </Col>
         ))}

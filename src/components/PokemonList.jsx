@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PokemonCard from "./PokemonCard";
 
-function PokemonList({ pokemonList, addToTeam }) {
+function PokemonList({ pokemonList, addToTeam, viewDetails }) {
   return (
     <Container>
       <Row>
@@ -13,7 +13,8 @@ function PokemonList({ pokemonList, addToTeam }) {
             <PokemonCard
               pokemon={pokemon}
               action={addToTeam}
-              actionLabel="Add to team"
+              isRemoving={false}
+              viewDetails={viewDetails}
             />
           </Col>
         ))}
